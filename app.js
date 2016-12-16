@@ -8,8 +8,16 @@ var express = require("express"),
     User = require("./models/user");
     
 mongoose.connect('mongodb://localhost/auth_demo_app');
-    
 app.set('view engine', 'ejs');
+
+app.use(require("express-session")({
+    secret: "Rusty is the best and cutest dog",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.get('/', function(req, res){
     res.render('home');
